@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Management System</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6e6;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right,#FF5B61,#FF5B61, #d64545, #FF5B61, #d64545);
+            color: #FFD2D3;
+            padding: 20px 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header img.logo {
+            max-width: 80px;
+            vertical-align: middle;
+            margin-right: 5px;
+            margin-left:300px;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+            margin-left:30px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        nav a:hover {
+            background: white;
+            color: #a11e1e;
+            transform: scale(1.1);
+        }
+
+        nav a.btn {
+            background: black;
+            color: white;
+        }
+
+        /* Main Section Styling */
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            color: #a11e1e;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-top: 120px;
+        }
+
+        main p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Article Section Styling */
+        .article-section {
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .article {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: left;
+        }
+
+        .article:hover {
+            transform: scale(1.05);
+        }
+
+        .article img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .article h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #a11e1e;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .article p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .article a {
+            color: #a11e1e;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .article a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #a11e1e, #d64545);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            main h2 {
+                font-size: 1.8rem;
+            }
+
+            main p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img.logo {
+                max-width: 50px;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            main h2 {
+                font-size: 1.5rem;
+            }
+
+            main p {
+                font-size: 0.9rem;
+            }
+
+            .article h3 {
+                font-size: 1.2rem;
+            }
+
+            .article p {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <h1>Blood Donation System</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/register">Sign Up</a>
+            <a href="/login">Login</a>
+            <a href="/admin" class="btn">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Welcome to the Blood Donation Management System</h2>
+        <p>Connecting donors and hospitals to save lives. Together, we can make a difference!</p>
+
+        <section class="article-section">
+            <div class="article">
+                <img src="{{ url_for('static', filename='be_hero.jpg') }}" alt="Donate Blood">
+                <h3>Why Donate Blood?</h3>
+                <p>Blood donation is a life-saving act that helps patients in need.</p>
+                <a href="https://www.who.int/campaigns/world-blood-donor-day" target="_blank">Read More</a>
+            </div>
+
+            <div class="article">
+                <img src="{{ url_for('static', filename='health_benefits.jpg') }}" alt="Health Benefits">
+                <h3>Health Benefits of Blood Donation</h3>
+                <p>Donating blood can help improve your heart health and reduce iron levels.</p>
+                <a href="https://www.redcrossblood.org/" target="_blank">Learn More</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Blood Donation Management System. Saving lives, one donation at a time.</p>
+    </footer>
+</body>
+
+</html>

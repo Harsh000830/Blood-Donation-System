@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header,
+        button,
+        a {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right,#FF5B61,#FF5B61, #d64545, #FF5B61, #d64545);
+            color: #FFDEDE;
+            padding: 20px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 70px;
+            vertical-align: middle;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        header a:hover {
+            background: white;
+            color: #a11e1e;
+            transform: scale(1.1);
+        }
+
+        header a.btn {
+            background: black;
+            color: white;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul a {
+            display: inline-block;
+            background: linear-gradient(90deg, #e52835, #ff4040); /* Updated gradient */
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 30px; /* Rounded corners for a button-like look */
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        nav ul a:hover {
+            background: linear-gradient(90deg, #ff4040, #e52835); /* Reverse gradient on hover */
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 64, 64, 0.8), 0 0 30px rgba(229, 40, 53, 0.5); /* Glow effect */
+        }
+        
+        /* Glowing animation for nav buttons */
+        nav ul a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 30px;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.5) 20%, rgba(229, 40, 53, 0) 80%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: glow 1.5s infinite;
+        }
+        
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 64, 64, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 64, 64, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 64, 64, 0.4);
+            }
+        }
+        
+        nav ul a:hover::after {
+            opacity: 1;
+        }
+        
+
+        /* Main Styling */
+        main {
+            margin: 120px auto 0;
+            max-width: 1000px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            color: #c0392b;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        main table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        main table th, main table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        main table th {
+            background: linear-gradient(90deg, #c0392b, #e74c3c);
+            color: white;
+            font-weight: bold;
+        }
+
+        main table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        main table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .Logout-button {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .Logout-button a{
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background:#c0392b;
+            transition: background 0.3s ease, transform 0.2s ease;
+            
+        }
+        .Logout-button i {
+            margin-right: 8px;
+        }
+
+        .Logout-button a:hover {
+            background: #c0392b;
+            transform: scale(1.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: red;
+            
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(90deg, #514556, #010101, #514556);
+            color: white;
+            margin-top:80px;
+            position: relative;
+            bottom:0;
+            right:0;
+            left:0;
+            z-index:10;
+        }
+        
+.flashes {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.flash {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    display: inline-block;
+    width: auto;
+}
+
+.flash.success {
+    background-color: #28a745; /* Green */
+}
+
+.flash.danger {
+    background-color: #dc3545; /* Red */
+}
+
+.flash.warning {
+    background-color: #ffc107; /* Yellow */
+}
+
+.flash.info {
+    background-color: #17a2b8; /* Blue */
+}
+
+/* Optional: Smooth transition */
+.flash {
+    opacity: 0;
+    animation: fadeIn 4s forwards;
+}
+
+/* Keyframe for fade-in effect */
+@keyframes fadeIn {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.tabs ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tabs ul li {
+    margin-right: 20px;
+}
+
+.tabs ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.tabs ul li a.active {
+    background-color: #c0392b;
+    color: white;
+}
+
+.tabs ul li a:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <ul>
+                <a href="{{ url_for('register')}}">+ADD USER</a>
+                <a href="{{ url_for('admin_dashboard', view='users') }}">VIEW USERS</a>
+                <a href="{{ url_for('search') }}">SEARCH</a>
+                <a href="{{ url_for('admin_dashboard', view='blood_requests') }}">BLOOD REQUESTS</a>
+                <a href="{{ url_for('admin_dashboard', view='appointments') }}">APPOINTMENTS</a>
+                <a href="{{ url_for('admin_dashboard', view='donor_chats') }}">CHAT</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+{% if view == 'hospital_chats' %}
+<h2 style="text-align: center; color: #c0392b;">Hospital Messages</h2>
+<div style="margin: 20px auto; max-width: 800px;">
+    <!-- Dropdown to select a hospital -->
+    <form method="GET" style="margin-bottom: 20px; text-align: center;">
+        <input type="hidden" name="view" value="hospital_chats">
+        <label for="hospital_id" style="font-weight: bold; color: #555;">Select Hospital:</label>
+        <select name="hospital_id" id="hospital_id" required>
+            <option value="" disabled selected>Select a hospital</option>
+            {% for hospital in hospitals %}
+            <option value="{{ hospital.hospital_id }}" {% if hospital_id == hospital.hospital_id %}selected{% endif %}>
+                {{ hospital.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" style="margin-left: 10px; background: #c0392b; color: white;">View Chat</button>
+    </form>
+    {% if chat %}
+    <div>
+        <!-- Chat messages and reply form go here, similar to donor_chats -->
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+        {% if view == 'donor_chats' %}
+<h2 style="text-align: center; color: #c0392b;">Donor Messages</h2>
+<div style="margin: 20px auto; max-width: 800px;">
+    
+    <!-- Dropdown to select a donor -->
+    <form method="GET" style="margin-bottom: 20px; text-align: center;">
+        <input type="hidden" name="view" value="donor_chats">
+        <label for="donor_id" style="font-weight: bold; color: #555;">Select Donor:</label>
+        <select name="donor_id" id="donor_id" required style="width: 50%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <option value="" disabled selected>Select a donor</option>
+            {% for donor in donors %}
+            <option value="{{ donor.donor_id }}" {% if donor_id == donor.donor_id %}selected{% endif %}>
+                {{ donor.name }} ({{ donor.email }})
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" style="margin-left: 10px; background: #c0392b; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">View Chat</button>
+    </form>
+
+    <!-- Chat box -->
+    {% if chat %}
+    <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+        {% for message in chat %}
+        <div style="margin-bottom: 20px; display: flex; justify-content: {% if message.sender_role == 'Admin' %}flex-end{% else %}flex-start{% endif %};">
+            <div style="max-width: 70%; padding: 10px; border-radius: 10px; background: {% if message.sender_role == 'Admin' %}#c0392b{% else %}#eaeaea{% endif %}; color: {% if message.sender_role == 'Admin' %}white{% else %}#333{% endif %}; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <strong>{{ 'Admin' if message.sender_role == 'Admin' else 'Donor' }}</strong>:<br>
+                {{ message.content }}
+                <div style="text-align: right; font-size: 12px; color: #aaa; margin-top: 5px;">{{ message.timestamp }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Reply form -->
+    <form method="POST" style="margin-top: 10px;">
+        <textarea name="message" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" placeholder="Reply to donor..." required></textarea>
+        <input type="hidden" name="donor_id" value="{{ donor_id }}">
+        <button type="submit" name="send_reply" style="margin-top: 10px; background: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Send Reply</button>
+    </form>
+    {% else %}
+    <p style="text-align: center; color: #666;">Select a donor to view chat messages.</p>
+    {% endif %}
+</div>
+{% endif %}
+
+
+
+{% if view == 'users' %}
+<!-- Tabs for Active and Inactive Users -->
+<div class="tabs">
+    <ul>
+        <li>
+            <a href="{{ url_for('admin_dashboard', view='users',status='active') }}" 
+               class="{{ 'active' if user_status == 'active' else '' }}">Active Users</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin_dashboard', view='users', status='inactive') }}" 
+               class="{{ 'active' if user_status == 'inactive' else '' }}">Inactive Users</a>
+        </li>
+    </ul>
+</div>
+
+<!-- User Table -->
+<h2>{{ 'Active' if user_status == 'active' else 'Inactive' }} Users</h2>
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Blood Type</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in registered_users %}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.blood_type or 'N/A' }}</td>
+            <td>
+                <form method="POST">
+                    {% if user.active %}
+                    <button type="submit" name="delete_user_id" value="{{ user.user_id }}" class="btn btn-danger">Deactivate</button>
+                    {% else %}
+                    <button type="submit" name="activate_user" value="{{ user.user_id }}" class="btn btn-success">Activate</button>
+                    {% endif %}
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% elif view == 'blood_requests' %}
+        <h2>All Blood Requests</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Hospital ID</th>
+                    <th>Blood Type</th>
+                    <th>Quantity</th>
+                    <th>Requested Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in blood_requests %}
+                <tr>
+                    <td>{{ request.request_id }}</td>
+                    <td>{{ request.hospital_id }}</td>
+                    <td>{{ request.blood_type }}</td>
+                    <td>{{ request.quantity }}</td>
+                    <td>{{ request.requested_date }}</td>
+                    <td>{{request.status}}</td>
+                    <td>
+                        <form method="POST" action="/admin_dashboard">
+                            <input type="hidden" name="delete_request_id" value="{{ request.request_id }}">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% elif view == 'appointments' %}
+        <h2>All Appointments</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Donor ID</th>
+                    <th>Hospital ID</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.appointment_id }}</td>
+                  
+                    <td>{{ appointment.donor_id }}</td>
+                    <td>{{ appointment.hospital_id }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>{{appointment.status}}</td>
+                    <td>
+                        <form method="POST" action="/admin_dashboard">
+                            <input type="hidden" name="delete_appointment_id" value="{{ appointment.appointment_id }}">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <div class="Logout-button">
+            <a href="/admin" class="Logout-button">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Online Blood Donation System</p>
+    </footer>
+</body>
+</html>
